@@ -11,20 +11,23 @@ import java.sql.SQLException;
  */
 public abstract class AbstractConnectionManager implements IConnectionManager {
 
-    protected BaseConnectionInfo baseConnectionInfo;
+    protected AbstractConnectionInfoBuilder abstractConnectionInfoBuilder;
 
-    public AbstractConnectionManager(BaseConnectionInfo baseConnectionInfo) {
-        this.baseConnectionInfo = baseConnectionInfo;
+    private AbstractConnectionManager() {
+    }
+
+    public AbstractConnectionManager(AbstractConnectionInfoBuilder abstractConnectionInfoBuilder) {
+        this.abstractConnectionInfoBuilder = abstractConnectionInfoBuilder;
     }
 
     private void prepareConnection() throws ConnectionException {
-        if (checkBaseConnectionInfo()){
+        if (abstractConnectionInfoBuilder.hasConnectionInitSucceed()) {
             try {
-                DriverManager.getDriver(baseConnectionInfo.getUrl());
+                DriverManager.getDriver(abstractConnectionInfoBuilder.getUrl());
             } catch (SQLException e) {
                 try {
                     System.out.println("未找到对应url驱动 >> 注册驱动");
-                    Class.forName(baseConnectionInfo.getDriverClassName());
+                    Class.forName(abstractConnectionInfoBuilder.getDriverClassName());
                 } catch (ClassNotFoundException ex) {
                     throw new ConnectionException("驱动注册失败，请检查驱动类名和对应的依赖 << ".concat(e.getLocalizedMessage()));
                 }
@@ -37,14 +40,12 @@ public abstract class AbstractConnectionManager implements IConnectionManager {
         prepareConnection();
         System.out.println("开始获取连接...");
         try {
-            Connection connection = DriverManager.getConnection(baseConnectionInfo.getUrl(), baseConnectionInfo.getUsername(), baseConnectionInfo.getPassword());
+            Connection connection = DriverManager.getConnection(abstractConnectionInfoBuilder.getUrl(), abstractConnectionInfoBuilder.getProp());
             System.out.println("获取连接成功...");
             return connection;
         } catch (SQLException e) {
             throw new ConnectionException("获取连接失败，请核对连接信息是否正确 << ".concat(e.getLocalizedMessage()));
         }
     }
-
-    protected abstract boolean checkBaseConnectionInfo() throws ConnectionException;
 
 }

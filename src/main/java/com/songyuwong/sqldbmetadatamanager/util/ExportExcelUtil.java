@@ -2,6 +2,8 @@ package com.songyuwong.sqldbmetadatamanager.util;
 
 import com.songyuwong.sqldbmetadatamanager.exception.ConnectionException;
 import com.songyuwong.sqldbmetadatamanager.mysql.Mysql8ConnManager;
+import com.songyuwong.sqldbmetadatamanager.mysql.Mysql8ConnectionInfoBuilder;
+import com.songyuwong.sqldbmetadatamanager.mysql.MysqlConnectionManager;
 import org.apache.poi.common.usermodel.HyperlinkType;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -18,7 +20,7 @@ public class ExportExcelUtil {
     }
 
     public static void exportAllMetaDataWithOneExcel() {
-        Mysql8ConnManager mysql8ConnManager = new Mysql8ConnManager();
+        MysqlConnectionManager mysql8ConnManager = new MysqlConnectionManager(new Mysql8ConnectionInfoBuilder());
         Workbook excelFile = new HSSFWorkbook();
         CreationHelper creationHelper = excelFile.getCreationHelper();
         // 超链接单元格样式
@@ -128,7 +130,7 @@ public class ExportExcelUtil {
                     }
                 }
             }
-            OutputStream fileOut = new FileOutputStream("C:\\Users\\wsy\\Desktop\\CDA_PDL规范比对.xls");
+            OutputStream fileOut = new FileOutputStream("C:\\Users\\wsy\\Desktop\\CDA_PDL.xls");
             excelFile.write(fileOut);
         } catch (ConnectionException | SQLException | IOException e) {
             e.printStackTrace();
