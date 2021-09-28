@@ -96,9 +96,7 @@ public class ModelInfoUtil {
         System.out.println(" ");
         System.out.println("============ LABEL ===========");
         System.out.println("============ TYPE ===========");
-        for (int i = 1; i <= columnsMetaData.getColumnCount(); i++) {
-            System.out.print(columnsMetaData.getColumnType(i)+"\t\t");
-        }
+        for (int i = 1; i <= columnsMetaData.getColumnCount(); i++)
         System.out.println(" ");
         System.out.println("============ TYPE ===========");
         System.out.println("============ TYPENAME ===========");

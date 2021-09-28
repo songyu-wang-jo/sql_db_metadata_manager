@@ -1,7 +1,14 @@
 {
   "database": {
-    "url": "url",
-    "username": "wong",
-    "password": "test"
+    "test_oracle": {
+      "driver": "oracle.jdbc.OracleDriver",
+      "user": "JHIDS",
+      "password": "JHIDS",
+      "url": "jdbc:oracle:thin:@183.62.250.66:58013:TEST",
+      "remarksReporting": true
+    }
+  },
+  "connection": {
+    "max_time_out": 12213
   }
 }

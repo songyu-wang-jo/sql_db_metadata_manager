@@ -12,4 +12,5 @@ public class ConnectionException extends Exception{
     public String getMessage() {
         return message;
     }
+
 }
