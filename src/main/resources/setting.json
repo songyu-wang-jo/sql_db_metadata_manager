@@ -6,6 +6,13 @@
       "password": "JHIDS",
       "url": "jdbc:oracle:thin:@183.62.250.66:58013:TEST",
       "remarksReporting": true
+    },
+    "test_TIDB": {
+      "driver": "com.mysql.cj.jdbc.Driver",
+      "user": "root",
+      "password": "jhmk5354(#($",
+      "url": "jdbc:mysql://192.168.101.111:4000/JHIDG?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true&useServerPrepStmts=true&useConfigs=maxPerformance&prepStmtCacheSqlLimit=1000000&prepStmtCacheSize=500&rewriteBatchedStatements=true&allowMultiQueries=true",
+      "remarksReporting": true
     }
   },
   "connection": {

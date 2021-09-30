@@ -1,6 +1,5 @@
 package com.songyuwong.sqldbmetadatamanager.util;
 
-import com.songyuwong.sqldbmetadatamanager.oracle.OracleConnectionInfoBuilder;
 import com.songyuwong.sqldbmetadatamanager.oracle.OracleConnectionManager;
 
 import java.sql.*;
@@ -8,11 +7,11 @@ import java.sql.*;
 public class ModelInfoUtil {
 
     public static void main(String[] args) throws Exception {
-        OracleConnectionManager oracleConnectionManager = new OracleConnectionManager(new OracleConnectionInfoBuilder());
+        OracleConnectionManager oracleConnectionManager = new OracleConnectionManager("test_oracle");
         Connection dbConnection = oracleConnectionManager.getConnection();
         DatabaseMetaData metaData = dbConnection.getMetaData();
         System.out.println("开始处理数据库表结构信息....");
-        ResultSet tables = metaData.getTables(dbConnection.getCatalog(), dbConnection.getSchema(), "JH%", new String[]{"TABLE"});
+        ResultSet tables = metaData.getTables(dbConnection.getCatalog(), dbConnection.getSchema(), "%", new String[]{"TABLE","VIEW"});
         while (tables.next()) {
             System.out.println("开始处理表" + tables.getString("TABLE_NAME") + "....");
             ResultSetMetaData tablesMetaData = tables.getMetaData();

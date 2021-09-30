@@ -10,6 +10,9 @@ import com.songyuwong.sqldbmetadatamanager.model.OracleConnectionBaseInfo;
 
 import java.io.*;
 import java.net.ConnectException;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -82,7 +85,12 @@ public class OracleConnectionManager extends AbstractConnectionManager {
         try {
             OracleConnectionManager oracleConnectionManager = new OracleConnectionManager("test_oracle");
             try {
-                System.out.println(oracleConnectionManager.getConnection().getMetaData().getDatabaseProductName());
+                Connection connection = oracleConnectionManager.getConnection();
+                DatabaseMetaData metaData = connection.getMetaData();
+                ResultSet tables = metaData.getTables(connection.getCatalog(), connection.getSchema(), "%", new String[]{});
+                while (tables.next()){
+                    System.out.println(tables.getString("TABLE_NAME"));
+                }
             } catch (SQLException | ConnectionException e) {
                 e.printStackTrace();
             }
