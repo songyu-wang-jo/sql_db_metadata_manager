@@ -31,13 +31,14 @@ public class OracleConnectionManager extends AbstractConnectionManager {
         BufferedReader bufferedReader = null;
         try {
             inputStream = ClassLoader.getSystemResource("setting.json").openStream();
-            int len = 12;
+            int bufferSize = 12;
+            int len = bufferSize;
             char[] buffer = new char[len];
             int off = 0;
             StringBuilder stringBuilder = new StringBuilder();
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             while ((len = bufferedReader.read(buffer, off, len)) != -1) {
-                if (len==1024){
+                if (len==bufferSize){
                     stringBuilder.append(buffer);
                 }else {
                     stringBuilder.append(Arrays.copyOf(buffer,len));
